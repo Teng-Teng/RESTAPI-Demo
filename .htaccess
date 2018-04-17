@@ -1,4 +1,4 @@
 RewriteEngine On     
 # Turn on the rewriting engine
 
-RewriteRule ^api/(\w*)/(\w*)/(\w*) api.php?first-var=$1&second-var=$2&third-var=$3 [QSA]
+RewriteRule ^api/(\w*)/(\w*)/(\w*) api.php?first-var=$1&second-var=$2&third-var=$3 [NC,L]

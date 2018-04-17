@@ -56,13 +56,13 @@
             </div>
         </div>
     </form>
-    <h3>
+    <p>
     <?php
     if(isset($_POST['submit'])) {
         if($_POST['submit'] == 'select') {
             $id = $_POST['sel_id'];
 
-            $url = "http://localhost/Exercise/RESTAPI-Demo/api/select/" . $id;
+            $url = "http://localhost/Exercise/RESTAPI-Demo/api/select/" . $id . '/Placeholder';
 
             $client = curl_init($url);
             curl_setopt($client,CURLOPT_RETURNTRANSFER,true);
@@ -70,7 +70,7 @@
 
             $result = json_decode($response);
 
-            echo $result->data;
+            echo 'id: ' . $result->id . ' , name: ' . $result->name . ' , quantity: ' . $result->quantity;
         } else if($_POST['submit'] == 'insert') {
             $name = $_POST['ins_name'];
             $quantity = $_POST['ins_quantity'];
@@ -83,12 +83,12 @@
 
             $result = json_decode($response);
 
-            echo $result->data;
+            echo $result;
         } else if($_POST['submit'] == 'update') {
             $id = $_POST['upd_id'];
             $cur = $_POST['upd_cur'];
 
-            $url = "http://localhost/Exercise/RESTAPI-Demo/api/update" . $id . "/" . $cur;
+            $url = "http://localhost/Exercise/RESTAPI-Demo/api/update/" . $id . "/" . $cur;
 
             $client = curl_init($url);
             curl_setopt($client,CURLOPT_RETURNTRANSFER,true);
@@ -96,11 +96,11 @@
 
             $result = json_decode($response);
 
-            echo $result->data;
+            echo $result;
         } else if($_POST['submit'] == 'delete') {
             $id = $_POST['del_id'];
 
-            $url = "http://localhost/Exercise/RESTAPI-Demo/api/delete" . $id;
+            $url = "http://localhost/Exercise/RESTAPI-Demo/api/delete/" . $id .'/Placeholder';
 
             $client = curl_init($url);
             curl_setopt($client,CURLOPT_RETURNTRANSFER,true);
@@ -108,13 +108,13 @@
 
             $result = json_decode($response);
 
-            echo $result->data;
+            echo $result;
         } else {
             echo 'lalala rose';
         }
     }
     ?>
-    </h3>
+    </p>
 </div>
 <div class="info"></div>
 
