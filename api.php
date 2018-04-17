@@ -1,7 +1,7 @@
 <?php 
 
 header("Content-Type:application/json");
-require_once "data.php";
+require_once "Database.php";
 
 function response($status, $status_message, $data) {
 	header("HTTP/1.1" . $status);
@@ -16,15 +16,46 @@ function response($status, $status_message, $data) {
 
 }
 
-if(!empty($_GET['name'])) {
-	$name = $_GET['name'];
-	$price = get_price($name);
+if(!empty($_GET['first-var'])) {
+	$first = $_GET['first-var'];
 
-	if(empty($price)) {
-		response(200, "Product Not Found", NULL);
-	} else {
-		response(200, "Product Found", $price);
-	}
+	if($first == 'select') {
+        $id = $_GET['second-var'];
+        $conn = new Database();
+        $result = $conn->selectItemById($id);
+
+        return json_encode($result);
+
+    } else if($first == 'insert') {
+        $name = $_GET['second-var'];
+        $quantity = $_GET['third-var'];
+
+        $conn = new Database();
+        $result = $conn->insertItem($name, $quantity);
+
+        return json_encode($result);
+
+    } else if($first == 'update') {
+        $id = $_GET['second-var'];
+        $cur = $_GET['third-var'];
+
+        $conn = new Database();
+        $result = $conn->updateItem($id, $cur);
+
+        return json_encode($result);
+
+    } else if($first == 'delete') {
+        $id = $_GET['second-var'];
+
+        $conn = new Database();
+        $result = $conn->deleteItemById($id);
+
+        return json_encode($result);
+
+    } else {
+	    echo 'wrong bro';
+    }
+
 } else {
 	response(400, "Invalid Request", NULL);
 }
